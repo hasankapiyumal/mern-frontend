@@ -26,10 +26,13 @@ export default function AdminProductPage() {
   },[productsLoaded]);
 
   return (
+
     <div className="relative min-h-screen bg-gray-100 p-6">
+
       <Link to={"/admin/products/addproduct"} className="absolute right-10 bottom-10 border-blue-600 border-2 p-5 rounded-2xl text-blue-600 text-2xl hover:bg-blue-400"><FaPlus/></Link>
       <h1>Admin Product Page</h1>
-      <table>
+      {
+        productsLoaded?          <table>
        <thead>
         <tr>
           <th>Product ID</th>
@@ -72,6 +75,12 @@ export default function AdminProductPage() {
           ))}
         </tbody>
       </table>
+        :<div className="w-full h-full flex flex-col items-center justify-center">
+          <div className="w-[60px] h-[60px] rounded-full border-4 border-grey-200 border-b-[#3b82f6] animate-spin"></div>
+        </div>
+
+      }
+     
     </div>
   );
 }
