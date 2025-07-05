@@ -12,6 +12,7 @@ export default function AddProductForm() {
     const [lastPrice, setLastPrice] = useState("");
     const [stock, setStock] = useState("");
     const [description, setDescription] = useState("");
+    const [imageFiles, setImageFiles] = useState([]);
     const navigate =useNavigate();
 
    async function handleSubmit(e) {
@@ -54,7 +55,7 @@ try {
                   <label>Alternative Names</label>
                   <input type="text" value={alternativeNames} onChange={(e) => setAlternativeNames(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
                   <label>Image Urls</label>
-                   <input type="text" value={imageUrls} onChange={(e) => setImageUrls(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
+                   <input type="file" multiple  onChange={(e) => setImageUrls(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
                     <label>Price</label>
                     <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
                     <label>last Price</label>
