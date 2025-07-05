@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import uploadMediaFileHandler from "../../utils/mediaUpload";
 
 export default function AddProductForm() {
     const [productId, setProductId] = useState("");
@@ -16,8 +17,22 @@ export default function AddProductForm() {
     const navigate =useNavigate();
 
    async function handleSubmit(e) {
+       const promiseArray = [];
+       for (let i = 0; i < imageFiles.length; i++) {
+        promiseArray[i]=uploadMediaFileHandler(imageFiles[i])
+       }
+
+       await Promise.all(promiseArray).then((urls) => {
+        console.log("All files uploaded successfully:", urls);
+       
+      }).catch((error) => {
+        console.error("Error uploading files:", error);
+        toast.error("Error uploading files: " + error.message);
+        return;
+      });
+
       const altnames = alternativeNames.split(",");
-      const images = imageUrls.split(",");
+    
       const product ={
         productId: productId,
         productName: productName,
@@ -55,7 +70,7 @@ try {
                   <label>Alternative Names</label>
                   <input type="text" value={alternativeNames} onChange={(e) => setAlternativeNames(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
                   <label>Image Urls</label>
-                   <input type="file" multiple  onChange={(e) => setImageUrls(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
+                   <input type="file" multiple  onChange={(e) => setImageUrls(e.target.files)} className="border border-black w-[300px] h-[30px] rounded-md" />
                     <label>Price</label>
                     <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} className="border border-black w-[300px] h-[30px] rounded-md" />
                     <label>last Price</label>
