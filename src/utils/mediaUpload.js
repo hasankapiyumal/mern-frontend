@@ -8,7 +8,7 @@ return new Promise((reslove,reject)=>{
       return;
     }
 
-    const fileName=file.name;
+    let fileName=file.name;
     const extension =fileName.split('.').pop();
     if(extension!="jpg"|| extension !="png" || extension !="jpeg"){
       toast.error("Only jpg, png and jpeg files are allowed");
