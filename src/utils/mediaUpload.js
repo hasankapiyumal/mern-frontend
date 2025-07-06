@@ -18,7 +18,7 @@ return new Promise((reslove,reject)=>{
     const timestamp = Date.now();
     fileName=timestamp+"."+extension;
 
-    const supabase =createClient(process.env.PUBLIC_URL, process.env.PUBLIC_Key);
+    const supabase =createClient(import.meta.env.VITE_SUPABASE_URL,import.meta.env.VITE_SUPABASE_PUBLIC_Key);
     supabase.storage.from("images").upload(fileName,file,{
         cacheControl: "3600",
         upsert: false
