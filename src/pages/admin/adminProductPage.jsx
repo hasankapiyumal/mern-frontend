@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminProductPage() {
   const [products, setProducts] = useState([]);
   const [productsLoaded, setProductsLoaded] = useState(false);
+  const navigate=useNavigate();
 
   useEffect(() => {
     if(!productsLoaded) {
@@ -69,7 +70,12 @@ export default function AdminProductPage() {
                     console.error("Error deleting product:", err);
                   });
                 }}/>
-                <FaPencil/>
+
+                <FaPencil className="cursor-pointer" onClick={()=>{
+                  navigate("/admin/products/editproduct",{
+                    state:{product:product}
+                  })
+                }}/>
               </td>
             </tr>
           ))}

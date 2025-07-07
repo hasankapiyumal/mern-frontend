@@ -36,8 +36,8 @@ export default function AddProductForm() {
       const product ={
         productId: productId,
         productName: productName,
-        altnames:altnames,
-        images: images,
+        altNames:altnames,
+        images: imageFiles,
         price: price,
         lastPrice: lastPrice,
         stock: stock,
