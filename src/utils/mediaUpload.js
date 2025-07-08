@@ -10,7 +10,7 @@ return new Promise((reslove,reject)=>{
 
     let fileName=file.name;
     const extension =fileName.split('.').pop();
-    if(extension!="jpg"|| extension !="png" || extension !="jpeg"){
+    if(extension!="jpg" && extension !="png" && extension !="jpeg"){
       toast.error("Only jpg, png and jpeg files are allowed");
       return;
     }
@@ -18,7 +18,7 @@ return new Promise((reslove,reject)=>{
     const timestamp = Date.now();
     fileName=timestamp+"."+extension;
 
-    const supabase =createClient(import.meta.env.VITE_SUPABASE_URL,import.meta.env.VITE_SUPABASE_PUBLIC_Key);
+    const supabase =createClient(import.meta.env.VITE_SUPABASE_PUBLIC_URL,import.meta.env.VITE_SUPABASE_PUBLIC_Key);
     supabase.storage.from("images").upload(fileName,file,{
         cacheControl: "3600",
         upsert: false
