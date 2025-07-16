@@ -6,7 +6,29 @@ import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const googleLogin=useGoogleLogin({
-   onSuccess: tokenResponse => console.log(tokenResponse),
+   onSuccess: (res)=>{
+    console.log(res);
+    axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/google",{
+      token:res.access_token
+    }).then((res)=>{
+      if(res.data.message=="user created"){
+        {
+          toast.success("User created");
+          window.location.href = "/";
+        }
+      }else{
+        localStorage.setItem("token",res.data.token);
+        if(res.data.user.type === "admin") {
+          toast.success("Welcome Admin");
+           window.location.href = "/admin";
+         }else{
+          toast.success("Welcome User");
+            window.location.href = "/";
+         }
+      }
+     
+    })
+   }
   })
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
